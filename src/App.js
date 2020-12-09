@@ -70,17 +70,18 @@ useEffect( () => {
   useEffect( () => {
       db
         .collection('post')
-        // .orderBy('timestamp' ,'desc')
+        .orderBy('timestamp' ,'desc')
         .onSnapshot( snapshot => {
         console.log(snapshot);
         setPosts(snapshot.docs.map(doc=>
           ({
             id : doc.id ,
-            post : doc.data( )
+            post : doc.data()
           })
           
           ))
       })
+      // console.log(posts);
   }, []);
    const signUp = (event) => {
       event.preventDefault();
@@ -104,9 +105,8 @@ useEffect( () => {
     console.log(email);
     console.log(password);
 
-    firebase.auth()
-            .signInWithEmailAndPassword(email,password)
-            .error( error => alert(error.message))
+    auth.signInWithEmailAndPassword(email,password)
+            .catch( error => alert(error.message))
     setOpenSignIn(false);
   }
   
@@ -206,7 +206,7 @@ useEffect( () => {
                             user ={user}
                             username = {post.username}
                             caption = {post.caption}
-                            imgUrl = {post.imgUrl}
+                            imgUrl = {post.imageUrl}
                           /> ))
                           }
 
@@ -229,7 +229,7 @@ useEffect( () => {
                     
                     
       {user?.displayName ? (
-          <ImageUpload />
+          <ImageUpload  username={username}/>
         ):(<h3>Sorry you need to Login to upload </h3>
     )} 
     </div>

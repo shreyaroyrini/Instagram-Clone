@@ -35,12 +35,13 @@ import firebase from "firebase";
                                 },
                                 () => {
                                     storage
-                                            .ref("image")
+                                            .ref("images")
                                             .child(image.name)
                                             .getDownloadURL()
                                             .then(url => {
+                                                console.log(url);
                                                 db.collection('post').add({
-                                                    timestamp: firebase.firestore.FieldValue.serverTimestamp( ),
+                                                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                                                     caption : caption,
                                                     imageUrl : url,
                                                     username : username 
